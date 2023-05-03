@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class SessionsController extends Controller
@@ -29,8 +30,13 @@ class SessionsController extends Controller
         $jdcode = json_decode($cek['data']);
         if ($jdcode->status) {
             $a = $jdcode->nik;
-            $dataLogin = $this->auth->autt($a);
-            foreach ($dataLogin as $userss);
+            $userss = DB::table('employee')
+                        ->join('division','employee.DIVISIONID','=','division.DIVISIONID')
+                        ->where('employee.EMPLOYEEID','=',$a)
+                        ->select('employee.EMNAME','division.DIVNAME','employee.DEPTID')
+                        ->first();
+            // $dataLogin = $this->auth->autt($a);
+            // foreach ($dataLogin as $userss);
             date_default_timezone_set('Asia/Jakarta');
 
             $key = "peRkasa$%";
