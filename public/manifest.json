@@ -1,0 +1,19 @@
+{
+    "name": "Kusuma Bot",
+    "short_name": "Kusuma Bot",
+    "start_url": "/",
+    "scope": "/",
+    "background_color": "#6777ef",
+    "description": "Kusuma Bot",
+    "display": "fullscreen",
+    "theme_color": "#6777ef",
+    
+    "icons": [
+        {
+            "src": "assets/logo.PNG",
+            "sizes": "500x500",
+            "type": "image/png",
+            "purpose": ""
+        }
+    ]
+}
