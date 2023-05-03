@@ -86,6 +86,16 @@ class SessionsController extends Controller
         //     return back()->withErrors(['email'=>'Email or password invalid.']);
         // }
     }
+    function cek_akses_approve($nik){
+        $hak_approve = FALSE;
+        $approve_data = DB::table('jenis_approve_detail')
+                        ->where('nik','=',$nik)
+                        ->get();
+        if(count($approve_data)>0){
+            $hak_approve = TRUE;
+        }
+        return $hak_approve;
+    }
     function login_kag($data){
         $ch = curl_init($this->url); 
 		$postString = http_build_query($data, '', '&');
