@@ -30,10 +30,10 @@ class SessionsController extends Controller
         $jdcode = json_decode($cek['data']);
         if ($jdcode->status) {
             $a = $jdcode->nik;
-            $userss = DB::table('employee')
-                        ->join('division','employee.DIVISIONID','=','division.DIVISIONID')
-                        ->where('employee.EMPLOYEEID','=',$a)
-                        ->select('employee.EMNAME','division.DIVNAME','employee.DEPTID')
+            $userss = DB::table('EMPLOYEE')
+                        ->join('DIVISION','EMPLOYEE.DIVISIONID','=','DIVISION.DIVISIONID')
+                        ->where('EMPLOYEE.EMPLOYEEID','=',$a)
+                        ->select('EMPLOYEE.EMNAME','DIVISION.DIVNAME','EMPLOYEE.DEPTID')
                         ->first();
             // $dataLogin = $this->auth->autt($a);
             // foreach ($dataLogin as $userss);
