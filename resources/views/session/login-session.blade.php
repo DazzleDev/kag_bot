@@ -21,7 +21,7 @@
                     @csrf
                     <label>email</label>
                     <div class="mb-3">
-                      <input type="email" class="form-control" name="email" id="email" placeholder="email" value="" aria-label="email" aria-describedby="email-addon">
+                      <input type="text" class="form-control" name="username" id="email" placeholder="username" value="" aria-label="email" aria-describedby="email-addon">
                       @error('email')
                         <p class="text-danger text-xs mt-2">{{ $message }}</p>
                       @enderror
