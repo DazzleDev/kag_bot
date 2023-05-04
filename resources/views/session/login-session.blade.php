@@ -19,7 +19,7 @@
                 <div class="card-body">
                   <form role="form" method="POST" action="/session">
                     @csrf
-                    <label>email</label>
+                    <label>Username</label>
                     <div class="mb-3">
                       <input type="text" class="form-control" name="username" id="email" placeholder="username" value="" aria-label="email" aria-describedby="email-addon">
                       @error('email')

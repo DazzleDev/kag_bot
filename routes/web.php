@@ -26,9 +26,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
+
+	Route::get('/dashboard', function () {
+		view('dashboard');
+	 })->name('dashboard.index');
 
 	Route::get('billing', function () {
 		return view('billing');
@@ -118,8 +119,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
     Route::get('/login', function () {
-		return view('dashboard');
+		return view('dashboard.index');
 	})->name('sign-up');
+	
 });
 
 

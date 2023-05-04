@@ -65,8 +65,12 @@ class SessionsController extends Controller
                 //'JWT' => $jwt
             );
             session($sess_data);
+            // print_r ($sess_data);
             //$this->response($sess_data, 200);
-            return redirect('dashboard')->with(['success'=>'You are logged in.']);
+            
+            // return redirect('dashboard')->with(['success'=>'You are logged in.']);
+            return redirect()->route('dashboard.index')->with(['success' => 'Login berhasil']);
+
         } else {
             //$this->response($jdcode, 404);
             return back()->withErrors(['email'=>'Email or password invalid.']);
