@@ -3,50 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DpController extends Controller
 {
     //
     function __construct()
     {
-        $token = new token();
-        parent::__construct();
+        // $token = new token();
+        // parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
 
-        $this->load->model('dasar');
-        $this->load->model('m_absensi');
-        $this->load->model('auth');
-        $this->load->model('endpoint');
-        $this->load->model('payroll/dp_employee');
-        $this->load->model('payroll/kontrak_model');
-        $this->load->model('payroll/cuti_emp_model');
-        $tes = $token->cek_jwt();
-        if ($tes['status'] == 500) {
-            $this->response([
-                'msg' => "token tidak ada"
-            ], 200);
-        } else {
-            if ($tes['data_jwt']->is_login == false) {
-                // echo "token";
-                $this->response([
-                    'msg' => "token tidak ditemukan"
-                ], 200);
-            }
-        }
+        // $this->load->model('dasar');
+        // $this->load->model('m_absensi');
+        // $this->load->model('auth');
+        // $this->load->model('endpoint');
+        // $this->load->model('payroll/dp_employee');
+        // $this->load->model('payroll/kontrak_model');
+        // $this->load->model('payroll/cuti_emp_model');
+        // $tes = $token->cek_jwt();
+        // if ($tes['status'] == 500) {
+        //     $this->response([
+        //         'msg' => "token tidak ada"
+        //     ], 200);
+        // } else {
+        //     if ($tes['data_jwt']->is_login == false) {
+        //         // echo "token";
+        //         $this->response([
+        //             'msg' => "token tidak ditemukan"
+        //         ], 200);
+        //     }
+        // }
     }
 
-    public function cek_saldo_dp_get()
+    public function cek_saldo_dp(Request $request)
     {
         $stts_json = 200;
         $data = [];
 
-        $token = new token();
-        $data_token = $token->cek_jwt();
-        // $find_dp = $this->m_absensi->hitung_dp($data_token['data_jwt']->nik);
+        $nik = $request->input('nik');//ambil inputan nik
     
-        $find_dp = dp_employee::where('nik','=',$data_token['data_jwt']->nik)->get();
+        $find_dp = DB::table('dp_employee')->where('nik','=',$nik)->get();
         if (count($find_dp) > 0) {
-            $msg_json = [];
+            $data_json = [];
             $dp_belum_finger = 0;
             $dp_sudah_finger = 0;
             $dp_sudah_terpakai = 0;
@@ -80,18 +79,9 @@ class DpController extends Controller
                         $dp_sudah_terpakai++;
                         array_push($tgl_sudah_terpakai, $row->tgl);
                         break;
-                    // case 3:
-                    //     $dp_expired++;
-                    //     array_push($tgl_expired, $row->tgl);
-                    //     break;
                 }
-                // $today = strtotime(date('Y-m-d'));
-                // if (strtotime($row->tgl_expired) < $today && $row->status != 2) {
-                //     $dp_expired++;
-                //     array_push($tgl_expired, $row->tgl);
-                // }
             }
-            $msg_json = array(
+            $data['dt_cek_dp'] = array(
                 'nama' => $data_token['data_jwt']->nama,
                 'jumlah_dp_belum_aktif' => $dp_belum_finger,
                 'tgl_dp_belum_aktif' => $tgl_blm_finger,
@@ -104,9 +94,10 @@ class DpController extends Controller
             );
         } else {
             $stts_json = 404;
-            $msg_json = 'Data tidak ditemukan';
+            $data['msag'] = 'Data tidak ditemukan';
         }
-        $this->response(['msg' => $msg_json], $stts_json);
+        return $data;
+        // $this->response(['msg' => $msg_json], $stts_json);
         // $this->input->post('nik')
         // return $this->generate_dp_post($this->input->post('nik'));
     }

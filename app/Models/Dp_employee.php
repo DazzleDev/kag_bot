@@ -3,27 +3,23 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 
-class Division extends Model
+class Dp_employee extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
-    protected $table = 'jenis_approve_detail';
+    protected $table = 'dp_employee';
     protected $fillable = [
-        'header_id',
-        'approve_ke',
+        'id',
         'nik',
-        'nama','id_dept','insert_by','insert_date'
+        'id_dept',
+        'dp_from','id_dp_from','periode','periode_expired','tgl','tgl_expired','status','created_by','created_date','tgl_akhir_kontrak'
     ];
 
     /**
